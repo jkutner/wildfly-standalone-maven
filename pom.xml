@@ -16,28 +16,20 @@
     </dependency>
   </dependencies>
   <build>
+    <finalName>hello</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.10</version>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-                <goals><goal>copy</goal></goals>
-                <configuration>
-                    <artifactItems>
-                        <artifactItem>
-                            <groupId>com.github.jsimone</groupId>
-                            <artifactId>webapp-runner</artifactId>
-                            <version>8.0.30.2</version>
-                            <destFileName>webapp-runner.jar</destFileName>
-                        </artifactItem>
-                    </artifactItems>
-                </configuration>
-          </execution>
-        </executions>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>1.0.3</version>
+        <configuration>
+          <processTypes>
+            <web>$JBOSS_HOME/bin/standalone.sh -b=0.0.0.0 -Djboss.http.port=$PORT</web>
+          </processTypes>
+          <buildpacks>
+            <buildpack>https://github.com/jkutner/heroku-buildpack-wildfly</buildpack>
+          </buildpacks>
+        </configuration>
       </plugin>
     </plugins>
   </build>
